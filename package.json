@@ -1,0 +1,17 @@
+{
+  "name": "pokertools",
+  "version": "0.0.0",
+  "description": "Tools to manage a Poker Project",
+  "main": "CreateEquityFile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "poker"
+  ],
+  "author": "Horscontexte / Camille Theil",
+  "license": "ISC",
+  "dependencies": {
+    "split-file-stream": "^1.3.0"
+  }
+}
