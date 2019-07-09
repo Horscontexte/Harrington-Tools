@@ -2,7 +2,7 @@ const csv = require('fast-csv');
 const fs = require('fs');
 const {CardGroup, OddsCalculator} = require('poker-odds-calculator');
 
-var stream = fs.createReadStream("./encounter.csv");
+var stream = fs.createReadStream("./Encouters/Encounter-file.split-0");
 let hero;
 let vilain;
 let path = "01.csv";
