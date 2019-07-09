@@ -1,5 +1,4 @@
 const fs = require('fs');
-const {CardGroup, OddsCalculator} = require('poker-odds-calculator');
 
 let cardNumberOne = ['Ac','Ah','Ad','As','Kc','Kh','Kd','Ks','Qc','Qh','Qd','Qs','Jc','Jh','Jd','Js','Tc','Th','Td','Ts','9s','9c','9h','9d',
 '8s','8d','8h','8c','7s','7d','7h','7c','6s','6d','6h','6c','5s','5d','5h','5c','4s','4d','4h','4c','3s','3d','3h','3c',
@@ -18,21 +17,14 @@ let cardsorder = {
     '4' : 11,
     '3' : 12,
     '2' : 13
-
 }
+
 let cardNumberTwo = cardNumberOne;
 let player1Combo = [];
 let heroHandCard1;
 let heroHandCard2;
 let vilainHandCard1;
 let vilainHandCard2;
-
-// Création du fichier contenant les résultats
-let path = 'Poker_Equity_Results.csv';
-let data;
-let header = 'hero,vilain,victory_percentage,loose_percentage,split_percentage\r\n'
-fs.writeFile(path);
-fs.appendFileSync(path,header, 'utf8');
 
 // Création du fichier contenant toute les rencontres possibles
 let encouterFile = 'encounter.csv'
@@ -55,7 +47,7 @@ const getAllCombo = () => {
   });
 }
 
-const getAllEquity = () => {
+const getAllConfrontation = () => {
   let player2Combo = player1Combo
   player1Combo.forEach(function(wombo) {
     player2Combo.forEach(function(combo) {
@@ -76,22 +68,10 @@ const getAllEquity = () => {
       } else if (heroHandCard2 == vilainHandCard1 || heroHandCard2 == vilainHandCard2){
         console.log('Rencontre impossible entre Hero et Vilain :' + heroHandCard2 + '-' + vilainHandCard1 + ' ou ' + heroHandCard2 + '-' + vilainHandCard2)
       } else {
-        // Calcul de l'Equity
-        // poker-odds-calculator
-        // const player1Cards = CardGroup.fromString(wombo);
-        // const player2Cards = CardGroup.fromString(combo);
-        // const result = OddsCalculator.calculate([player1Cards, player2Cards]);
-        //
-        // console.log(`Hero - ${player1Cards} - ${result.equities[0].getEquity()}%`);
-        // console.log(`Vilain - ${player2Cards} - ${result.equities[1].getEquity()}%`);
 
-        // Calcul du pourcentage de split de la situation
-        // var split = result.equities[0].getEquity() + result.equities[1].getEquity()
-        // split = 100 - split;
-        // // On ajoute une ligne au fichier avec toutes les informations
-        // var data = wombo + ',' + combo + ',' + result.equities[0].getEquity() + ',' + result.equities[1].getEquity() + ',' + split + '\r\n';
-        // fs.appendFileSync(path,data, 'utf8');
-        // console.log("Document mis à jours avec la rencontre : " + wombo + combo)
+        // Vérification de la formation des combo (Respect de l'ordre)
+        //                                           exemple: A2 = OK
+        //                                                    2A = Not OK
         let eheroHandCard1 = wombo.charAt(0);
         let eheroHandCard2 = wombo.charAt(2);
         let evilainHandCard1 = combo.charAt(0);
@@ -103,7 +83,7 @@ const getAllEquity = () => {
         let c3 = cardsorder[evilainHandCard1]
         let c4 = cardsorder[evilainHandCard2]
 
-        if (parsedc1 > parsedc2) {
+        if (c1 > c2) {
           console.log('BAD COMBO : ' + eheroHandCard1 + eheroHandCard2)
         } else if ( c3 > c4) {
           console.log('BAD COMBO : ' + evilainHandCard1 + evilainHandCard2)
@@ -121,8 +101,7 @@ const getAllEquity = () => {
 
 async function asyncCall() {
   await getAllCombo();
-  await getAllEquity();
-
+  await getAllConfrontation();
 }
 
 asyncCall();
