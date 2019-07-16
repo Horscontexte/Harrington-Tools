@@ -1,8 +1,8 @@
 # Harrington-Tools
 
-Tools for Harrington Core Project, to manage and fill a mongoBDD with Poker hands Equity
+Tools for Harrington Core Project, to manage and fill a mongoDB with Poker hands Equity
 
-## What's can we do with it ?
+## What can we do with it ?
 
 ### - CreateEncounterFile.js
 
@@ -72,7 +72,7 @@ Dependency :
 
 Start : `node pushEquityResultIntoBDD.js`
 
-Based on the EquityResult file previously generate, we create each record into a local mongo BDD, using HTTP request.
+Based on the EquityResult file previously generate, we create each record into a local mongoDB, using HTTP request.
 I actually use my custom API : https://github.com/Horscontexte/Poker_Equity_Api
 
 (Roadmap: Patch the script in order to create a record direcly with `mongoose`, without any HTTP request) 
